@@ -1,0 +1,17 @@
+{
+    "editor.rulers": [80],
+    "files.exclude": {
+        "**/__pycache__/": true,
+        "**/*.pyc": true,
+        ".pytest_cache": true
+    },
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "[python]": {
+        "editor.rulers": [88],
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    }
+}
