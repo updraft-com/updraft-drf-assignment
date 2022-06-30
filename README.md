@@ -157,6 +157,7 @@ A `Transaction` object should be represented like this:
 
 ```
 {
+    "id": 1,
     "account": 1,
     "timestamp": "2022-06-12T17:36:58.632000Z",
     "amount": "-25.26",
