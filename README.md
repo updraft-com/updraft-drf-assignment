@@ -21,6 +21,7 @@ be enough to get you going:
 
 ```
 python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 ## Install Dependencies with poetry
@@ -56,7 +57,7 @@ We've provided some fixture date that will create three users:
 2. a normal user "user1" with two bank accounts
 3. a normal user "user2" with one bank account
 
-Each user's password is the same as thier username.
+Each user's password is the same as their username.
 
 To load the sample data, ensure that your venv is active and then run all of the
 database migrations and load the data using `manage.py`:
