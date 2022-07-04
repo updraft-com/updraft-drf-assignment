@@ -3,6 +3,20 @@ Django web service configured with Django REST framework. We recommend reading
 this entire README all of the way through so that you understand the task,
 expectations and what has been provided for you before making a start.
 
+> ⚠️ Please do not upload your solutions to public repositories on GitHub or
+> other publicly available or indexed spaces on the internet. Doing so can allow
+> future applicants to reference your solution and undermine the integrity of
+> the test.
+>
+> Obviously we want all current and future candidates to be on an even playing
+> field and we don't want to have to keep writing new tests (and new assessment
+> notes and criteria) each time we do a round of interviews. We thank you for
+> your understanding and cooperation in this respect. 🙂
+>
+> We realise this sounds like an unlikely form of plagerism to occur, but Google
+> is powerful and trust us: this is exactly how at least one engineer at Updraft
+> used to find the answers to their university coursework... 🤷‍♂️
+
 # Getting set up
 
 Before getting started with the main tasks, you'll need to configure your
