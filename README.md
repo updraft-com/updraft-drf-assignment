@@ -1,23 +1,18 @@
-Welcome to the Updraft technical test. In this folder you will find a small
-Django web service configured with Django REST framework. We recommend reading
-this entire README all of the way through so that you understand the task,
-expectations and what has been provided for you before making a start.
+# Updraft Technical Test Guide
 
-> ⚠️ Please do not upload your solutions to public repositories on GitHub or
-> other publicly available or indexed spaces on the internet. Doing so can allow
-> future applicants to reference your solution and undermine the integrity of
-> the test.
->
-> Obviously we want all current and future candidates to be on an even playing
-> field and we don't want to have to keep writing new tests (and new assessment
-> notes and criteria) each time we do a round of interviews. We thank you for
-> your understanding and cooperation in this respect. 🙂
+Welcome to Updraft's technical test. This README file serves as a comprehensive guide to set up your development environment and complete your task. Kindly read through this entire document to grasp the objectives, expectations, and resources provided.
+
+> ⚠️ Important Notice: Please refrain from sharing your solutions on GitHub or other publicly accessible internet spaces. This ensures fair play for all future applicants and maintains the integrity of this test.
 >
 > We realise this sounds like an unlikely form of plagerism to occur, but Google
 > is powerful and trust us: this is exactly how at least one engineer at Updraft
 > used to find the answers to their university coursework... 🤷‍♂️
 
-# Getting set up
+## Introduction
+
+This test involves a Django web service configured with the Django REST framework. Your objective is to create both list and retrieve endpoints for the Account and Transaction models while following best practices.
+
+## Getting set up
 
 Before getting started with the main tasks, you'll need to configure your
 development environment and make sure the tests pass.
@@ -28,55 +23,52 @@ development environment and make sure the tests pass.
 
 ## Create a Python 3 virtual environment
 
-You will need a Python 3 venv to get started. For the purposes of this exercise,
-any modern Python 3 version will be fine. If you have a prefered way of managing
-venvs, then feel free to use that. If not, the following command will probably
-be enough to get you going:
+To get started, set up a Python 3 virtual environment. You may use any modern Python 3 version for this task. If you're unsure about virtual environments, the following commands should suffice:
 
-```
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-## Install Dependencies with poetry
+## Install Dependencies with poetry
 
 We use [`poetry`](https://python-poetry.org/) to manage python dependencies, if
 you don't have it installed globally then you can install it in your venv using
 pip like so:
 
-```
+```bash
 pip install poetry
 ```
 
 Now you can use it to install all of the dependencies:
 
-```
+```bash
 poetry install
 ```
 
 If you need to add a new library to the project, you can do so like this:
 
-```
+```bash
 poetry add [--dev] <library>
 ```
 
-This will update `pyproject.toml` and `poetry.lock` with the new dependency so
-that we will be able to install the same version when evaluating your solution.
+This updates the `pyproject.toml` and `poetry.lock` files, ensuring that we evaluate your solution under the same conditions.
 
 ## Sample (fixture) data
 
-We've provided some fixture date that will create three users:
+Fixture data is provided to simulate a real-world scenario.
+The data includes three users:
 
-1. a super user "test-admin" for using django admin panel
-2. a normal user "user1" with two bank accounts
-3. a normal user "user2" with one bank account
+1. Superuser "test-admin" for Django admin panel access
+2. Regular user "user1" with two bank accounts
+3. Regular user "user2" with one bank account
 
 Each user's password is the same as their username.
 
 To load the sample data, ensure that your venv is active and then run all of the
 database migrations and load the data using `manage.py`:
 
-```
+```bash
 python manage.py migrate
 python manage.py loaddata sample.json
 ```
@@ -88,7 +80,7 @@ Now if you run the server and browse to the admin panel
 If you want to make use of this fixture data in any tests you write, be sure to
 set the `fixtures` property of your `APITestCase` subclass:
 
-```
+```python
 class TestSomething(APITestCase):
 
     fixtures = ["sample.json"]
@@ -102,7 +94,7 @@ class TestSomething(APITestCase):
 
 We use [`pytest`](https://pytest.org/) to run our tests:
 
-```
+```bash
 pytest
 ```
 
@@ -110,7 +102,7 @@ You should see all tests failing, as the endpoints that they are testing have
 not been implemented. As you work on your task, you may wish to add more tests
 to ensure that you're covering all the important scenarios.
 
-# Your task
+## Your task
 
 You will need to create both list and retrieve endpoints for the `Account` and
 `Transaction` models.
@@ -123,18 +115,22 @@ larger production app." Django REST framework gives you a lot of tools out of
 the box and we'd like you to use this as an opportunity to demonstrate your
 knowledge of those tools to us.
 
-The following URLs are expected to be supported:
+The following API endpoints are expected to be supported:
 
 - `GET /accounts/` - list all bank accounts
-- `GET /accounts/:id` - retrieve the bank account with ID `:id`
+- `GET /accounts/:id` - Retrieves a specific bank account by `:id`
 - `GET /transactions/` - list all transactions
-- `GET /transactions/:id` - retireve the transactions with ID `:id`
+- `GET /transactions/:id` - retireve the transactions by `:id`
+
+Users should only see their own Accounts and Transactions, while admin users (User.is_staff) should see all.
+Implement cursor-based pagination for all list endpoints.
+Enable filtering for transactions by timestamps, account IDs, and transaction categories.
+Extend the Account model to include transaction_count_last_thirty_days and balance_change_last_thirty_days.
 
 Additionally, these endpoints should meet the following requirements:
 
 1. Users should only be able to see their own `Account`s and `Transaction`s,
-   whilst an admin (as defined by the `User.is_staff` flag) should be able to
-   view all accounts and transactions in the system.
+   whilst an admin (`User.is_staff`) should be able to view all accounts and transactions in the system.
 2. All "list" endpoints should be paginated using cursor-based pagination.
 3. The `Transaction`s list endpoint should be ordered with the most recent
    transactions first and allow a user to filter by:
@@ -151,11 +147,11 @@ Additionally, these endpoints should meet the following requirements:
 An `Account` object should be represented like this when returned as part of an
 API response:
 
-```
+```json
 {
     "id": 1,
     "user": 2,
-    "name": "John Smith"
+    "name": "John Smith",
     "transaction_count_last_thirty_days": 119,
     "balance_change_last_thirty_days": "-1304.67",
 }
@@ -169,7 +165,7 @@ annotation from the [freezegun](https://github.com/spulec/freezegun) package)
 
 A `Transaction` object should be represented like this:
 
-```
+```json
 {
     "id": 1,
     "account": 1,
