@@ -9,6 +9,7 @@ license = "proprietary"
 python = "^3.8"
 Django = "^4.0.4"
 djangorestframework = "^3.13.1"
+django-filter = "^23.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"
