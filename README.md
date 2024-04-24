@@ -38,7 +38,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-## Install Dependencies with poetry
+## Install Dependencies with poetry
 
 We use [`poetry`](https://python-poetry.org/) to manage python dependencies, if
 you don't have it installed globally then you can install it in your venv using
